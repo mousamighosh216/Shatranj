@@ -95,19 +95,31 @@ function dragDrop(e) {
         // check this first
         if(takenByOpponent && valid) {
             e.target.parentNode.append(draggedElement)
-
+            console.log(e.target.id)
+            
             if(opponentGo==="white"){
+                
+                if(e.target.id === "kingw") {
+                    alert("Black wins!")
+                    resetGame()
+                }
+
                 eatenPieces_w.push(e.target.outerHTML) // Store the SVG HTML of the captured piece
                 e.target.remove()
                 eaten_pieces_w.innerHTML = eatenPieces_w.join('')
             } else {
+
+                if(e.target.id === "kingb") {
+                    alert("White wins!")
+                    resetGame()
+                }
+
                 eatenPieces_b.push(e.target.outerHTML) // Store the SVG HTML of the captured piece
                 e.target.remove()
                 eaten_pieces_b.innerHTML = eatenPieces_b.join('')
             }
 
             
-            checkWin()
             changePlayer()
             return
         }
@@ -365,17 +377,6 @@ function revertIds(){
         square.setAttribute('square-id', i))
 }
 
-function checkWin() {
-   const kingw = document.querySelector("#kingw")
-   const kingb = document.querySelector("#kingb")
-    if(!kingw) {
-         alert("Black wins!")
-         resetGame()
-    } else if(!kingb) {
-         alert("White wins!")
-         resetGame()
-    }
-}
 
 function resetGame() {
     location.reload()
